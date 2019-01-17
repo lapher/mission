@@ -1,0 +1,16 @@
+#docker compose
+version: '3'
+services:
+  jupyter:
+    build: .
+    container_name: jupyter-notebook
+    ports:
+      - "8888:8888"
+    volumes:
+      - ../jupyter/:/home/jovyan/work/
+    command: start-notebook.sh --NotebookApp.token=''
+  aws-s3-proxy:
+    image: deppy/fake-s3
+    container_name: cc104.s3.local
+    ports:
+      - "4569:4569"
