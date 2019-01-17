@@ -1,0 +1,26 @@
+#docker compose
+version: '3'
+services:
+  jupyter:
+    build: .
+    container_name: jupyter-notebook
+    ports:
+      - "8888:8888"
+    volumes:
+      - /home/iii/mission12/jupyter:/home/jovyan/work/
+    command: start-notebook.sh --NotebookApp.token=''
+  mariaDB:
+    image: mariadb
+    restart: always
+    container_name: cc104.rds.local
+    environment:
+      MYSQL_ROOT_PASSWORD: iii
+    volumes:
+      - /home/iii/mission12/mariaDB:/var/lib/mysql
+  dynamodb:
+    image: amazon/dynamodb-local
+    restart: always
+    container_name: cc104.dynamodb.local
+  sqs-local:
+    image: vsouza/sqs-local
+    container_name: cc104.sqs.local
